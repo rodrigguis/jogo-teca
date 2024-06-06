@@ -10,15 +10,6 @@ Projeto de cadastro de loja de jogos
 **Back-end:** Python 3.12, Flash 3.0.0
 
 
-## Variáveis de Ambiente
-
-Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
-
-`API_KEY`
-
-`ANOTHER_API_KEY`
-
-
 ## Deploy
 
 Para fazer o deploy desse projeto rode
@@ -30,45 +21,38 @@ Para fazer o deploy desse projeto rode
 
 ## Rodando localmente
 
+Rode o docker-compose para habilitar o banco de dados.
+
 Clone o projeto
 
 ```bash
   git clone https://link-para-o-projeto
 ```
 
-Entre no diretório do projeto
+Acesse o diretorio projeto 
 
 ```bash
-  cd my-project
+  cd joto-teca
+```
+
+
+Habilite o banco de dados
+
+```bash
+docker-compose up
 ```
 
 Instale as dependências
 
 ```bash
-  npm install
+  pip install requirements.txt
 ```
 
 Inicie o servidor
 
 ```bash
-  npm run start
+  python app.py
 ```
-
-
-## Uso/Exemplos
-
-```javascript
-import Component from 'my-project'
-
-function App() {
-  return <Component />
-}
-```
-
-
-## Suporte
-
-Para suporte, mande um email para fake@fake.com ou entre em nosso canal do Slack.
 
 
 ## Roadmap
@@ -80,7 +64,7 @@ Para suporte, mande um email para fake@fake.com ou entre em nosso canal do Slack
 
 ## FAQ
 
-#### Erro na versao flash
+#### Erro na versao flash 2.xx
 
 Instalar a versao atual
 
