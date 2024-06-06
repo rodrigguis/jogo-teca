@@ -1,3 +1,6 @@
+""" Module principal """
+
+
 from flask import Flask, render_template, request, redirect, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 
@@ -17,6 +20,8 @@ db = SQLAlchemy(app)
 
 
 class Jogos(db.Model):
+    """ Class ORM representa Jogos """
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(50), nullable=False)
     categoria = db.Column(db.String(40), nullable=False)
@@ -27,6 +32,8 @@ class Jogos(db.Model):
 
 
 class Usuarios(db.Model):
+    """ Class ORM representa Usuarios """
+
     nickname = db.Column(db.String(8), primary_key=True)
     nome = db.Column(db.String(20), nullable=False)
     senha = db.Column(db.String(100), nullable=False)
@@ -37,20 +44,26 @@ class Usuarios(db.Model):
 
 @app.route('/')
 def index():
+    """ Method page index """
+
     lista = Jogos.query.order_by(Jogos.id)
     return render_template('lista.html', titulo='Jogos', jogos=lista)
 
 
 @app.route('/novo')
 def novo():
+    """ Method page novo """
+
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('novo')))
-    
+
     return render_template('novo.html', titulo='Novo Jogo')
 
 
 @app.route('/criar', methods=['POST',])
 def criar():
+    """ Method page criar """
+
     nome = request.form['nome']
     categoria = request.form['categoria']
     console = request.form['console']
@@ -69,13 +82,17 @@ def criar():
 
 
 @app.route('/login')
-def login(): 
+def login():
+    """ Method page login """
+
     proxima = request.args.get('proxima')
     return render_template('login.html', proxima=proxima)
 
 
 @app.route('/autenticar', methods=['POST',])
-def autenticar(): 
+def autenticar():
+    """ Method page autenticar """
+
     usuario = Usuarios.query.filter_by(nickname=request.form['usuario']).first()
 
     if usuario:
@@ -84,13 +101,15 @@ def autenticar():
             flash(usuario.nickname + ' logado com sucesso ')
             proxima_pagina = request.form['proxima']
             return redirect(proxima_pagina)
-    else: 
+    else:
         flash('Usuario nao logado')
         return redirect(url_for('login'))
 
 
 @app.route('/logout')
-def logout(): 
+def logout():
+    """ Method page logout """
+
     session['usuario_logado'] = None
     flash('Logout efetuado com sucesso!')
 
