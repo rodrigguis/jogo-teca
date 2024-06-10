@@ -1,6 +1,8 @@
 """ Modulo Views """
 
 from flask import render_template, request, redirect, session, flash, url_for
+
+import config
 from app import app, db
 from models import Jogos, Usuarios
 
@@ -39,6 +41,10 @@ def criar():
     novo_jog = Jogos(nome=nome, categoria=categoria, console=console)
     db.session.add(novo_jog)
     db.session.commit()
+
+    arquivo = request.files['arquivo']
+    upload_path = app.config['UPLOAD_PATH']
+    arquivo.save(f'{upload_path}/capa{novo_jog.id}.jpg')
 
     return redirect(url_for('index'))
 

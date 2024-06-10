@@ -59,7 +59,8 @@ usuario_sql = 'INSERT INTO usuarios (nome, nickname, senha) VALUES (%s, %s, %s)'
 usuarios = [
     ("Bruno Divino", "BD", "alohomora"),
     ("Camila Ferreira", "Mila", "paozinho"),
-    ("Guilherme Louro", "Cake", "python_eh_vida")
+    ("Guilherme Louro", "Cake", "python_eh_vida"),
+    ("Renato Rodrigues", "RR", "java")
 ]
 cursor.executemany(usuario_sql, usuarios)
 
