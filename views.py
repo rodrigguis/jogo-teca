@@ -1,6 +1,6 @@
 """ Modulo Views """
 
-from flask import render_template, request, redirect, session, flash, url_for
+from flask import render_template, request, redirect, session, flash, url_for, send_from_directory
 
 import config
 from app import app, db
@@ -55,8 +55,6 @@ def login():
 
     proxima = request.args.get('proxima')
     return render_template('login.html', proxima=proxima)
-
-
 @app.route('/autenticar', methods=['POST',])
 def autenticar():
     """ Method page autenticar """
@@ -82,6 +80,11 @@ def logout():
     flash('Logout efetuado com sucesso!')
 
     return redirect(url_for('index'))
+
+
+@app.route('/uploads/<nome_arquivo>')
+def imagem(nome_arquivo):
+    return send_from_directory('uploads', nome_arquivo)
 
 
 @app.route('/editar/<int:id>')
@@ -111,6 +114,7 @@ def autalizar():
     return redirect(url_for('index'))
 
 
+
 @app.route('/deletar/<int:id>')
 def deletar(id):
     """ Method delete """
@@ -123,4 +127,3 @@ def deletar(id):
     flash(f'Jogo {Jogos.id} deletado com sucesso!')
 
     return redirect(url_for('index'))
-
