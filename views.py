@@ -1,10 +1,9 @@
 """ Modulo Views """
 
 from flask import render_template, request, redirect, session, flash, url_for, send_from_directory
-
-import config
 from app import app, db
 from models import Jogos, Usuarios
+from helpers import recupera_imagem
 
 @app.route('/')
 def index():
@@ -95,12 +94,13 @@ def editar(id):
         return redirect(url_for('login', proxima=url_for('editar', id=id)))
 
     jogo = Jogos.query.filter_by(id=id).first()
+    capa_jogo = recupera_imagem(id)
 
-    return render_template('editar.html', titulo='Edicao Jogo', jogo=jogo)
+    return render_template('editar.html', titulo='Edicao Jogo', jogo=jogo, capa_jogo=capa_jogo)
 
 
 @app.route('/atualizar', methods=['POST',])
-def autalizar():
+def atualizar():
     """ Method page atualizar """
 
     jogo = Jogos.query.filter_by(id=request.form['id']).first()
@@ -110,6 +110,10 @@ def autalizar():
 
     db.session.add(jogo)
     db.session.commit()
+
+    arquivo = request.files['arquivo']
+    upload_path = app.config['UPLOAD_PATH']
+    arquivo.save(f'{upload_path}/capa{jogo.id}.jpg')
 
     return redirect(url_for('index'))
 
@@ -126,3 +130,6 @@ def deletar(id):
     flash(f'Jogo {Jogos.id} deletado com sucesso!')
 
     return redirect(url_for('index'))
+
+
+

@@ -32,3 +32,8 @@ D
 static/app.js,5/c/5cb1722284ad34a8a0c95e5f6c77e7c67c2a7eee
 @
 static/jquery.js,e/8/e844306578aa49c0c9aad28d558c0b4d069f2860
+:
+
+helpers.py,0/9/09c5163eef8209f1ba0f85bc15d002fd2ae0c4fd
+E
+templates/editar.html,d/4/d454168e9269e1df1775591a4fa816a3fa457221
