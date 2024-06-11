@@ -114,7 +114,6 @@ def autalizar():
     return redirect(url_for('index'))
 
 
-
 @app.route('/deletar/<int:id>')
 def deletar(id):
     """ Method delete """
