@@ -10,7 +10,6 @@ import time
 @app.route('/')
 def index():
     """ Method page index """
-
     lista = Jogos.query.order_by(Jogos.id)
     return render_template('lista.html', titulo='Jogos', jogos=lista)
 
@@ -18,7 +17,6 @@ def index():
 @app.route('/novo')
 def novo():
     """ Method page novo """
-
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('novo')))
 
@@ -28,7 +26,6 @@ def novo():
 @app.route('/criar', methods=['POST',])
 def criar():
     """ Method page criar """
-
     nome = request.form['nome']
     categoria = request.form['categoria']
     console = request.form['console']
@@ -55,13 +52,13 @@ def criar():
 @app.route('/login')
 def login():
     """ Method page login """
-
     proxima = request.args.get('proxima')
     return render_template('login.html', proxima=proxima)
+
+
 @app.route('/autenticar', methods=['POST',])
 def autenticar():
     """ Method page autenticar """
-
     usuario = Usuarios.query.filter_by(nickname=request.form['usuario']).first()
 
     if usuario:
@@ -78,7 +75,6 @@ def autenticar():
 @app.route('/logout')
 def logout():
     """ Method page logout """
-
     session['usuario_logado'] = None
     flash('Logout efetuado com sucesso!')
 
@@ -87,13 +83,13 @@ def logout():
 
 @app.route('/uploads/<nome_arquivo>')
 def imagem(nome_arquivo):
+    """ Method page imagem """
     return send_from_directory('uploads', nome_arquivo)
 
 
 @app.route('/editar/<int:id>')
 def editar(id):
     """ Method page editar """
-
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('editar', id=id)))
 
@@ -106,7 +102,6 @@ def editar(id):
 @app.route('/atualizar', methods=['POST',])
 def atualizar():
     """ Method page atualizar """
-
     jogo = Jogos.query.filter_by(id=request.form['id']).first()
     jogo.nome = request.form['nome']
     jogo.categoria = request.form['categoria']
@@ -128,7 +123,6 @@ def atualizar():
 @app.route('/deletar/<int:id>')
 def deletar(id):
     """ Method delete """
-
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login'))
 
