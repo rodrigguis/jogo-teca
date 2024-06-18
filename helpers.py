@@ -1,5 +1,15 @@
 import os
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, validators
 from app import app
+
+class Formulario(FlaskForm):
+    """Class Formulario"""
+    nome = StringField('Name of game: ', [validators.DataRequired(), validators.Length(min=2, max=50)])
+    categoria = StringField('Category: ', [validators.DataRequired(), validators.Length(min=2, max=40)])
+    console = StringField('Console: ', [validators.DataRequired(), validators.Length(min=2, max=20)])
+    salvar = SubmitField('Save')
+
 
 def recupera_imagem(id):
     """ Method page recupera """
