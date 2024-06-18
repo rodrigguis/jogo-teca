@@ -3,7 +3,7 @@
 from flask import render_template, request, redirect, session, flash, url_for, send_from_directory
 from app import app, db
 from models import Jogos, Usuarios
-from helpers import recupera_imagem, deleta_arquivo
+from helpers import recupera_imagem, deleta_arquivo, FormularioJogo
 import time
 
 
@@ -20,15 +20,22 @@ def novo():
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('novo')))
 
-    return render_template('novo.html', titulo='Novo Jogo')
+    form = FormularioJogo()
+
+    return render_template('novo.html', titulo='Novo Jogo', form=form)
 
 
 @app.route('/criar', methods=['POST',])
 def criar():
     """ Method page criar """
-    nome = request.form['nome']
-    categoria = request.form['categoria']
-    console = request.form['console']
+    form = FormularioJogo(request.form)
+
+    if not form.validate_on_submit():
+        redirect(url_for('novo'))
+
+    nome = form.nome.data
+    categoria = form.categoria.data
+    console = form.console.data
 
     jogo = Jogos.query.filter_by(nome=nome).first()
 

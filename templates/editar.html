@@ -26,7 +26,8 @@
             <label for="console">Console</label>
             <input type="text" id="console" name="console" class="form-control" value="{{ jogo.console }}">
           </div>
-          <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
+          <button type="submit" class="btn btn-primary btn-salvar">Save</button>
+            <a class="btn btn-outline-secondary" href="{{ url_for('index') }}">Back</a>
         </fieldset>
       </form>
 {% endblock %}
