@@ -12,5 +12,5 @@ mysql-connector-python==8.0.28
 protobuf==5.27.1
 SQLAlchemy==2.0.31
 typing_extensions==4.12.2
-Werkzeug==3.0.3
+Werkzeug==2.2.2
 WTForms==3.1.2

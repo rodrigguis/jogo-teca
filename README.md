@@ -91,3 +91,12 @@ pip install --upgrade flask-sqlalchemy
 pip uninstall flask flask-sqlalchemy
 pip install flask flask-sqlalchemy
 ```
+
+#### Erro ImportError: cannot import name ´url_quote' from ´werkzeug.url´ 
+
+O erro ocorre devido a incompatibilidades entre as versoes do Flask 2.2.2 e Werkzeug 3.0.0 
+
+###### Solution
+
+Equalize as versoes do Flask e Werkzeug (2.2.2)
+
