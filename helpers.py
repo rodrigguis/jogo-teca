@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, validators
 from app import app
 
-class Formulario(FlaskForm):
+class FormularioJogo(FlaskForm):
     """Class Formulario"""
     nome = StringField('Name of game: ', [validators.DataRequired(), validators.Length(min=2, max=50)])
     categoria = StringField('Category: ', [validators.DataRequired(), validators.Length(min=2, max=40)])
