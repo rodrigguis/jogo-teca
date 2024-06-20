@@ -3,7 +3,7 @@
 from flask import render_template, request, redirect, session, flash, url_for, send_from_directory
 from app import app, db
 from models import Jogos, Usuarios
-from helpers import recupera_imagem, deleta_arquivo, FormularioJogo
+from helpers import recupera_imagem, deleta_arquivo, FormularioJogo, FormularioUsuario
 import time
 
 
@@ -60,16 +60,20 @@ def criar():
 def login():
     """ Method page login """
     proxima = request.args.get('proxima')
-    return render_template('login.html', proxima=proxima)
+    
+    form = FormularioUsuario() 
+
+    return render_template('login.html', proxima=proxima, form=form)
 
 
 @app.route('/autenticar', methods=['POST',])
 def autenticar():
     """ Method page autenticar """
-    usuario = Usuarios.query.filter_by(nickname=request.form['usuario']).first()
+    form = FormularioUsuario(request.form)
+    usuario = Usuarios.query.filter_by(nickname=form.nickname.data).first()
 
     if usuario:
-        if request.form['senha'] == usuario.senha:
+        if form.senha.data == usuario.senha:
             session['usuario_logado'] = usuario.nickname
             flash(usuario.nickname + ' logado com sucesso ')
             proxima_pagina = request.form['proxima']

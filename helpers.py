@@ -10,6 +10,11 @@ class FormularioJogo(FlaskForm):
     console = StringField('Console: ', [validators.DataRequired(), validators.Length(min=2, max=20)])
     salvar = SubmitField('Save')
 
+class FormularioUsuario(FlaskForm): 
+    """Class Formulario Usuario"""
+    nickname = StringField('Nickname', [validators.DataRequired(), validators.Length(min=1, max=50)])
+    senha = StringField('Senha', [validators.DataRequired(), validators.Length(min=1, max=100)])
+    login = SubmitField('Salvar')
 
 def recupera_imagem(id):
     """ Method page recupera """
