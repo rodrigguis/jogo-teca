@@ -1,6 +1,6 @@
-import mysql.connector # type: ignore
-from mysql.connector import errorcode # type: ignore
-from flask_bcrypt import generate_password_hash # type: ignore
+import mysql.connector
+from mysql.connector import errorcode
+from flask_bcrypt import generate_password_hash
 
 print("Conectando...")
 try:

@@ -1,9 +1,10 @@
 """Module views users"""
 
 from app import app
-from flask import render_template, request, redirect, session, flash, url_for # type: ignore
+from flask import render_template, request, redirect, session, flash, url_for
 from models import Usuarios
 from helpers import FormularioUsuario
+from flask_bcrypt import check_password_hash 
 
 @app.route('/login')
 def login():
@@ -20,13 +21,14 @@ def autenticar():
     """ Method page autenticar """
     form = FormularioUsuario(request.form)
     usuario = Usuarios.query.filter_by(nickname=form.nickname.data).first()
+    senha = check_password_hash(usuario.senha, form.senha.data)
 
-    if usuario:
-        if form.senha.data == usuario.senha:
-            session['usuario_logado'] = usuario.nickname
-            flash(usuario.nickname + ' logado com sucesso ')
-            proxima_pagina = request.form['proxima']
-            return redirect(proxima_pagina)
+
+    if usuario and senha:
+        session['usuario_logado'] = usuario.nickname
+        flash(usuario.nickname + ' logado com sucesso ')
+        proxima_pagina = request.form['proxima']
+        return redirect(proxima_pagina)
     else:
         flash('Usuario nao logado')
         return redirect(url_for('login'))
