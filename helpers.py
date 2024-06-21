@@ -1,6 +1,6 @@
 import os
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, validators
+from flask_wtf import FlaskForm # type: ignore
+from wtforms import StringField, SubmitField, validators # type: ignore
 from app import app
 
 class FormularioJogo(FlaskForm):
